@@ -1,4 +1,9 @@
-let expenses = [];
+//let expenses = [];
+let expenses = JSON.parse(localStorage.getItem("expenses")) || [] // This loads saved data when the page opens
+
+function saveLocalStorage(){
+    localStorage.setItem("expenses", JSON.stringify(expenses));// this saves to localstorage everytime you change data 
+}
 
 //Category
 let selectedCategory = "";
@@ -43,6 +48,7 @@ if(!selectedCategory){
     };
     //Saves it to the array and updates the screen.
     expenses.push(expense);
+    saveLocalStorage();
     displayExpenses();
     updateTotal();
 
@@ -78,8 +84,9 @@ function displayExpenses(){
 //Delete Expense
 function deleteExpense(index){
     expenses.splice(index,1);
+    saveLocalStorage();
     displayExpenses(); 
-        updateTotal();
+    updateTotal();
 
 }
 
@@ -91,4 +98,3 @@ function updateTotal(){
 
     document.getElementById("totalAmount").textContent = `Ksh. ${total}`;
 }
-   
